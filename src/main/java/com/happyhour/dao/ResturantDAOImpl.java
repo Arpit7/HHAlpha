@@ -55,13 +55,12 @@ public class ResturantDAOImpl implements ResturantDAO {
 		return count;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Resturant> getResturants() {
+	public List<Resturant> getRegisteredResturants() {
 		String sql = "select id from Resturant";
 
-		return jdbcTemplate.query(sql, new RowMapper() {
+		return jdbcTemplate.query(sql, new RowMapper<Resturant>() {
 
-			public Object mapRow(ResultSet rs, int rownumber) throws SQLException {
+			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
 				Resturant r = new Resturant();
 				r.setId(rs.getInt(1));
 
@@ -70,4 +69,27 @@ public class ResturantDAOImpl implements ResturantDAO {
 		});
 
 	}
+	
+	/*public List<Resturant> getResturantsByLocation(int pincode) {
+		String sql = "select id from Resturant";
+
+		return jdbcTemplate.query(sql, new RowMapper<Resturant>() {
+
+			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
+				Resturant r = new Resturant();
+				r.setId(rs.getInt(1));
+
+				return r;
+			}
+		});
+
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
 }

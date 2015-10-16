@@ -13,6 +13,6 @@ public interface ResturantDAO {
 
 	public int insertResturant(Resturant resturant);
 
-	public List<Resturant> getResturants();
+	public List<Resturant> getRegisteredResturants();
 
 }

@@ -70,10 +70,10 @@ public class ResturantDAOImpl implements ResturantDAO {
 
 	}
 	
-	/*public List<Resturant> getResturantsByLocation(int pincode) {
-		String sql = "select id from Resturant";
+	public List<Resturant> getResturantsByLocation(int pincode) {
+		String sql = "select id from Resturant where rest_pincode= ?";
 
-		return jdbcTemplate.query(sql, new RowMapper<Resturant>() {
+		return jdbcTemplate.query(sql, new Object[]{pincode},new RowMapper<Resturant>() {
 
 			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
 				Resturant r = new Resturant();
@@ -84,7 +84,35 @@ public class ResturantDAOImpl implements ResturantDAO {
 		});
 
 	}
-	*/
+	
+	public List<Resturant> getResturantsByName(String restName) {
+		String sql = "select id from Resturant where rest_name= ?";
+
+		return jdbcTemplate.query(sql, new Object[]{restName},new RowMapper<Resturant>() {
+
+			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
+				Resturant r = new Resturant();
+				r.setId(rs.getInt(1));
+
+				return r;
+			}
+		});
+
+	}
+	public List<Resturant> getResturantsByNameAndLocation(int pincode,String restName) {
+		String sql = "select id from Resturant where  rest_pincode= ? and rest_name= ? ";
+
+		return jdbcTemplate.query(sql, new Object[]{pincode,restName},new RowMapper<Resturant>() {
+
+			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
+				Resturant r = new Resturant();
+				r.setId(rs.getInt(1));
+
+				return r;
+			}
+		});
+
+	}
 	
 	
 	

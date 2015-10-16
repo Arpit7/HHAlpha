@@ -15,4 +15,11 @@ public interface ResturantDAO {
 
 	public List<Resturant> getRegisteredResturants();
 
+	public List<Resturant> getResturantsByLocation(int pincode);
+
+	public List<Resturant> getResturantsByName(String restName);
+
+	public List<Resturant> getResturantsByNameAndLocation(int pincode,
+			String restName);
+
 }

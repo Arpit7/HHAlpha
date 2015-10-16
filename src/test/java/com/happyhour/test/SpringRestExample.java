@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.happyhour.controller.EmpRestURIConstants;
+import com.happyhour.common.EmpRestURIConstants;
 import com.happyhour.model.Employee;
 
 public class SpringRestExample {

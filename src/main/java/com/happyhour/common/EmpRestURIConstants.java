@@ -1,4 +1,4 @@
-package com.happyhour.controller;
+package com.happyhour.common;
 
 public class EmpRestURIConstants {
 

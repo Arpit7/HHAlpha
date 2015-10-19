@@ -22,5 +22,11 @@ public interface ResturantDAO {
 
 	public List<Resturant> getResturantsByNameAndLocation(int pincode,
 			String restName);
+	
+	public List<Resturant> getResturantsUsingCategory(String category);
+	
+	public Resturant getResturantUsingId(int resId);
+	
+	
 
 }

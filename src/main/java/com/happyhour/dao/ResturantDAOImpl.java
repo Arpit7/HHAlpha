@@ -23,7 +23,7 @@ public class ResturantDAOImpl implements ResturantDAO {
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	private Logger log = Logger.getLogger("ResturantDAOImpl");
-
+	
 	public JdbcTemplate getJdbcTemplate() {
 		if (jdbcTemplate == null) {
 			jdbcTemplate = new JdbcTemplate(dataSource);
@@ -116,9 +116,31 @@ public class ResturantDAOImpl implements ResturantDAO {
 	}
 	
 	
+	public List<Resturant> getResturantsUsingCategory(String category)
+	{
+		
+		String sql="Select rest_Id from Rest_Cat where category=?";
+		
+		
+		return jdbcTemplate.query(sql, new Object[]{category},new RowMapper<Resturant>() {
+
+			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
+				Resturant r = new Resturant();
+				r.setId(rs.getInt(1));
+
+				return r;
+			}
+		});
+	}
 	
-	
-	
+	public Resturant getResturantUsingId(int resId)
+	{
+		
+		String sql="Select * from Resturant where id=?";
+		
+		return jdbcTemplate.queryForObject(sql, new Object[]{resId}, Resturant.class);
+		
+	}
 	
 	
 }

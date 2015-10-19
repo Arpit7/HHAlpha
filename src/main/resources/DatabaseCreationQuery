@@ -90,3 +90,12 @@ CREATE TABLE Rest_Cat
   category VARCHAR(100) NOT NULL,
   CONSTRAINT contacts_pk PRIMARY KEY (id)
 );
+
+
+/*Alter Queries */
+
+Alter table Rest_Cat
+add column  rest_id BIGINT UNSIGNED NOT NULL ;
+
+
+

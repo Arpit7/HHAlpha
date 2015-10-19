@@ -9,6 +9,7 @@ import com.happyhour.model.Customer;
  * Interface for Customer interaction with DB
  * 
  * @author Mohit Bansal
+ * Updated By: Arpit Bhargava
  */
 public interface CustomerDAO {
 

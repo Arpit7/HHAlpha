@@ -16,6 +16,7 @@ import com.happyhour.model.Resturant;
  * Class for Resturant interaction with DB
  * 
  * @author Mohit Bansal
+ * Updated By: Arpit Bhargava
  */
 public class ResturantDAOImpl implements ResturantDAO {
 

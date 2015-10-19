@@ -8,6 +8,7 @@ import com.happyhour.model.Resturant;
  * Interface for Resturant interaction with DB
  * 
  * @author Mohit Bansal
+ * Updated By: Arpit Bhargava
  */
 public interface ResturantDAO {
 

@@ -63,7 +63,7 @@ public class CustomerDAOImpl extends JdbcDaoSupport implements CustomerDAO {
 		String sql = "select * from customer where user_id = ?";
 		log.info("Retrieving  customer using userId ");
 		return getJdbcTemplate().queryForObject(sql, new Object[] { userId },
-				Customer.class);
+				new CustomerRowMapper());
 	}
 
 	public int updateCustomerPassword(String userId, String password) {

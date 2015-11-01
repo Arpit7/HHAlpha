@@ -136,8 +136,41 @@ public class ResturantDAOImpl extends JdbcDaoSupport implements ResturantDAO {
 		String sql = "Select * from Resturant where id=?";
 
 		return getJdbcTemplate().queryForObject(sql, new Object[] { resId },
-				Resturant.class);
+				new ResturantRowMapper());
 
+	}
+	
+	
+	public static final class ResturantRowMapper implements RowMapper<Resturant>
+	{
+
+		@Override
+		public Resturant mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			Resturant res=new Resturant();
+			
+			res.setCreatedDate(rs.getDate("created_date"));
+			res.setId(rs.getInt("id"));
+			res.setRestAddress(rs.getString("rest_address"));
+			res.setRestEmail(rs.getString("rest_email"));
+			res.setRestLoginId(rs.getString("rest_login_id"));
+			res.setRestName(rs.getString("rest_name"));
+			res.setRestPassword(rs.getString("rest_password"));
+			res.setRestPhoneNum(rs.getInt("rest_phone_num"));
+			res.setRestPincode(rs.getInt("rest_pincode"));
+			res.setRestTypeId(rs.getInt("rest_type_id"));
+			res.setUpdatedDate(rs.getDate("updated_date"));
+			
+			
+			return null;
+		}
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

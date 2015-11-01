@@ -43,7 +43,7 @@ public class MerchantDAOImpl extends JdbcDaoSupport implements MerchantDAO {
 		String sql = "select * from merchant where merchant_id = ?";
 		log.info("Retrieving  Merchant using userId ");
 		return getJdbcTemplate().queryForObject(sql,
-				new Object[] { merchantId }, Merchant.class);
+				new Object[] { merchantId }, new MerchantRowMapper());
 
 	}
 
@@ -85,6 +85,28 @@ public class MerchantDAOImpl extends JdbcDaoSupport implements MerchantDAO {
 					}
 				});
 
+	}
+	
+	public static final class MerchantRowMapper implements RowMapper<Merchant>{
+
+		@Override
+		public Merchant mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			Merchant m=new Merchant();
+			m.setCreatedDate(rs.getDate("created_date"));
+			m.setEmailId(rs.getString("email"));
+			m.setId(rs.getInt("id"));
+			m.setMerchantId(rs.getInt("merchant_id"));
+			m.setMerchantName(rs.getString("merchant_name"));
+			m.setPassword(rs.getString("password"));
+			m.setPhoneNumber(rs.getInt("phone_num"));
+			m.setUpdatedDate(rs.getDate("updated_date"));
+			return m;
+		}
+		
+		
+		
+		
 	}
 
 }

@@ -10,7 +10,13 @@
             http://www.springframework.org/schema/tx/spring-tx.xsd
             http://www.springframework.org/schema/context 
             http://www.springframework.org/schema/context/spring-context.xsd">
-
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true"></property>
@@ -21,16 +27,15 @@
 
 
 
-
 	<bean id="customerDAO" class="com.happyhour.dao.CustomerDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
+	<bean id="merchantDAO" class="com.happyhour.dao.MerchantDAOImpl.java">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
+	<bean id="resturantDAO" class="com.happyhour.dao.ResturantDAOImpl.java">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
 </beans>

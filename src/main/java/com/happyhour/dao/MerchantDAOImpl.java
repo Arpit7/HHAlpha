@@ -6,10 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.happyhour.model.Merchant;
 
@@ -17,10 +15,8 @@ import com.happyhour.model.Merchant;
  * @author arpit.bhargava
  *
  */
-public class MerchantDAOImpl implements MerchantDAO {
+public class MerchantDAOImpl extends JdbcDaoSupport implements MerchantDAO {
 
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate;
 	private Logger log = Logger.getLogger("MerchantDAOImpl");
 
 	@Override
@@ -28,7 +24,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 		String sql = "select id,merchant_id from Merchant";
 		log.info("Retrieving All Registered Merchats");
 
-		return jdbcTemplate.query(sql, new RowMapper<Merchant>() {
+		return getJdbcTemplate().query(sql, new RowMapper<Merchant>() {
 
 			public Merchant mapRow(ResultSet rs, int rownumber)
 					throws SQLException {
@@ -46,8 +42,8 @@ public class MerchantDAOImpl implements MerchantDAO {
 
 		String sql = "select * from merchant where merchant_id = ?";
 		log.info("Retrieving  Merchant using userId ");
-		return jdbcTemplate.queryForObject(sql, new Object[] { merchantId },
-				Merchant.class);
+		return getJdbcTemplate().queryForObject(sql,
+				new Object[] { merchantId }, Merchant.class);
 
 	}
 
@@ -57,7 +53,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 		String sql = "select id,merchant_id from merchant where created_date < ?";
 		log.info("Retrieving All Merchant who registered before date = "
 				+ creationDate);
-		return jdbcTemplate.query(sql, new Object[] { creationDate },
+		return getJdbcTemplate().query(sql, new Object[] { creationDate },
 				new RowMapper<Merchant>() {
 
 					public Merchant mapRow(ResultSet rs, int rownumber)
@@ -77,7 +73,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 		String sql = "select id,merchant_id from merchant where created_date > ?";
 		log.info("Retrieving All Merchant who registered before date = "
 				+ creationDate);
-		return jdbcTemplate.query(sql, new Object[] { creationDate },
+		return getJdbcTemplate().query(sql, new Object[] { creationDate },
 				new RowMapper<Merchant>() {
 
 					public Merchant mapRow(ResultSet rs, int rownumber)
@@ -89,18 +85,6 @@ public class MerchantDAOImpl implements MerchantDAO {
 					}
 				});
 
-	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		if (jdbcTemplate == null) {
-			jdbcTemplate = new JdbcTemplate(dataSource);
-		}
-		return jdbcTemplate;
-	}
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		getJdbcTemplate();
 	}
 
 }

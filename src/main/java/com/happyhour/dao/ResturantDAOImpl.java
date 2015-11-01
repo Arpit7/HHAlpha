@@ -5,36 +5,19 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.happyhour.model.Resturant;
 
 /**
  * Class for Resturant interaction with DB
  * 
- * @author Mohit Bansal
- * Updated By: Arpit Bhargava
+ * @author Mohit Bansal Updated By: Arpit Bhargava
  */
-public class ResturantDAOImpl implements ResturantDAO {
+public class ResturantDAOImpl extends JdbcDaoSupport implements ResturantDAO {
 
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate;
 	private Logger log = Logger.getLogger("ResturantDAOImpl");
-	
-	public JdbcTemplate getJdbcTemplate() {
-		if (jdbcTemplate == null) {
-			jdbcTemplate = new JdbcTemplate(dataSource);
-		}
-		return jdbcTemplate;
-	}
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		getJdbcTemplate();
-	}
 
 	public int insertResturant(Resturant resturant) {
 
@@ -45,10 +28,17 @@ public class ResturantDAOImpl implements ResturantDAO {
 
 		int count = 0;
 		try {
-			count = jdbcTemplate.update(sql,
-					new Object[] { resturant.getRestName(), resturant.getRestAddress(), resturant.getRestPincode(),
-							resturant.getRestPhoneNum(), resturant.getRestEmail(), resturant.getRestLoginId(),
-							resturant.getRestPassword(), resturant.getRestTypeId(), resturant.getCreatedDate() });
+			count = getJdbcTemplate().update(
+					sql,
+					new Object[] { resturant.getRestName(),
+							resturant.getRestAddress(),
+							resturant.getRestPincode(),
+							resturant.getRestPhoneNum(),
+							resturant.getRestEmail(),
+							resturant.getRestLoginId(),
+							resturant.getRestPassword(),
+							resturant.getRestTypeId(),
+							resturant.getCreatedDate() });
 		} catch (Exception e) {
 			log.info("error in inserting Resturant :" + e.getMessage());
 		}
@@ -59,9 +49,10 @@ public class ResturantDAOImpl implements ResturantDAO {
 	public List<Resturant> getRegisteredResturants() {
 		String sql = "select id from Resturant";
 
-		return jdbcTemplate.query(sql, new RowMapper<Resturant>() {
+		return getJdbcTemplate().query(sql, new RowMapper<Resturant>() {
 
-			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
+			public Resturant mapRow(ResultSet rs, int rownumber)
+					throws SQLException {
 				Resturant r = new Resturant();
 				r.setId(rs.getInt(1));
 
@@ -70,77 +61,83 @@ public class ResturantDAOImpl implements ResturantDAO {
 		});
 
 	}
-	
+
 	public List<Resturant> getResturantsByLocation(int pincode) {
 		String sql = "select id from Resturant where rest_pincode= ?";
 
-		return jdbcTemplate.query(sql, new Object[]{pincode},new RowMapper<Resturant>() {
+		return getJdbcTemplate().query(sql, new Object[] { pincode },
+				new RowMapper<Resturant>() {
 
-			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
-				Resturant r = new Resturant();
-				r.setId(rs.getInt(1));
+					public Resturant mapRow(ResultSet rs, int rownumber)
+							throws SQLException {
+						Resturant r = new Resturant();
+						r.setId(rs.getInt(1));
 
-				return r;
-			}
-		});
+						return r;
+					}
+				});
 
 	}
-	
+
 	public List<Resturant> getResturantsByName(String restName) {
 		String sql = "select id from Resturant where rest_name= ?";
 
-		return jdbcTemplate.query(sql, new Object[]{restName},new RowMapper<Resturant>() {
+		return getJdbcTemplate().query(sql, new Object[] { restName },
+				new RowMapper<Resturant>() {
 
-			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
-				Resturant r = new Resturant();
-				r.setId(rs.getInt(1));
+					public Resturant mapRow(ResultSet rs, int rownumber)
+							throws SQLException {
+						Resturant r = new Resturant();
+						r.setId(rs.getInt(1));
 
-				return r;
-			}
-		});
+						return r;
+					}
+				});
 
 	}
-	public List<Resturant> getResturantsByNameAndLocation(int pincode,String restName) {
+
+	public List<Resturant> getResturantsByNameAndLocation(int pincode,
+			String restName) {
 		String sql = "select id from Resturant where  rest_pincode= ? and rest_name= ? ";
 
-		return jdbcTemplate.query(sql, new Object[]{pincode,restName},new RowMapper<Resturant>() {
+		return getJdbcTemplate().query(sql, new Object[] { pincode, restName },
+				new RowMapper<Resturant>() {
 
-			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
-				Resturant r = new Resturant();
-				r.setId(rs.getInt(1));
+					public Resturant mapRow(ResultSet rs, int rownumber)
+							throws SQLException {
+						Resturant r = new Resturant();
+						r.setId(rs.getInt(1));
 
-				return r;
-			}
-		});
+						return r;
+					}
+				});
 
 	}
-	
-	
-	public List<Resturant> getResturantsUsingCategory(String category)
-	{
-		
-		String sql="Select rest_Id from Rest_Cat where category=?";
-		
-		
-		return jdbcTemplate.query(sql, new Object[]{category},new RowMapper<Resturant>() {
 
-			public Resturant mapRow(ResultSet rs, int rownumber) throws SQLException {
-				Resturant r = new Resturant();
-				r.setId(rs.getInt(1));
+	public List<Resturant> getResturantsUsingCategory(String category) {
 
-				return r;
-			}
-		});
+		String sql = "Select rest_Id from Rest_Cat where category=?";
+
+		return getJdbcTemplate().query(sql, new Object[] { category },
+				new RowMapper<Resturant>() {
+
+					public Resturant mapRow(ResultSet rs, int rownumber)
+							throws SQLException {
+						Resturant r = new Resturant();
+						r.setId(rs.getInt(1));
+
+						return r;
+					}
+				});
 	}
-	
-	public Resturant getResturantUsingId(int resId)
-	{
-		
-		String sql="Select * from Resturant where id=?";
-		
-		return jdbcTemplate.queryForObject(sql, new Object[]{resId}, Resturant.class);
-		
+
+	public Resturant getResturantUsingId(int resId) {
+
+		String sql = "Select * from Resturant where id=?";
+
+		return getJdbcTemplate().queryForObject(sql, new Object[] { resId },
+				Resturant.class);
+
 	}
-	
-	
+
 }

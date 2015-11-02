@@ -9,6 +9,7 @@ public class RestCategory {
 
 	private long id;
 	private String category;
+	private long restId;
 	public long getId() {
 		return id;
 	}
@@ -51,6 +52,12 @@ public class RestCategory {
 	@Override
 	public String toString() {
 		return "RestCategory [id=" + id + ", category=" + category + "]";
+	}
+	public long getRestId() {
+		return restId;
+	}
+	public void setRestId(long restId) {
+		this.restId = restId;
 	}
 	
 	

@@ -15,7 +15,7 @@ public class Customer {
 	private String address;
 	private String password;
 	private int pincode;
-	private int phoneNum;
+	private long phoneNum;
 	private String email;
 	private Date createdDate;
 	private Date updatedDate;
@@ -68,11 +68,11 @@ public class Customer {
 		this.pincode = pincode;
 	}
 
-	public int getPhoneNum() {
+	public long getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(long phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
@@ -117,7 +117,6 @@ public class Customer {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result + phoneNum;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result
 				+ ((userName == null) ? 0 : userName.hashCode());

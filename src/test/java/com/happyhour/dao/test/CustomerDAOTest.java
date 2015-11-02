@@ -1,25 +1,36 @@
 package com.happyhour.dao.test;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import org.junit.runner.RunWith;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@TransactionConfiguration(defaultRollback = true)
-@ContextConfiguration({ "classpath:application-*.xml" })
-@Transactional  
-@RunWith(SpringJUnit4ClassRunner.class)  
-public class CustomerDAOTest {
+import com.happyhour.dao.CustomerDAO;
+import com.happyhour.model.Customer;
+import com.happyhour.model.object.DummyObjects;
 
-	
-	@Test
-	public void testMethod()
-	{
-		Assert.assertTrue(true);
+/**
+ * @author arpit.bhargava
+ *
+ */
+public class CustomerDAOTest extends GenericTestSuport{
+
+	Customer customer;
+	@Autowired
+	CustomerDAO customerDAO;
+
+	@Before
+	public void setUp() {
+		customer = DummyObjects.getCustomerObject();
 	}
-	
-	
+
+	@Test
+	public void testInsertCustomer() {
+
+		int insertCount = customerDAO.insertCustomer(customer);
+
+		Assert.assertTrue(insertCount == 1);
+
+	}
+
 }

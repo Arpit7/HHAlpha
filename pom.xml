@@ -194,6 +194,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
+<!-- Added configuration to handle hard coding of Timestamp in test cases  -->
+		<!-- <plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Duser.timezone=GMT-04:00</argLine>
+				</configuration>
+			</plugin> -->
 	</build>
 </project>
